@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NICFLIX </title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tv-player.css">
+</head>
+
+<body>
+
+<!-- =========================
+     NAVIGATION
+========================== -->
+<header>
+    <nav>
+        <div class="logo">
+            NICFLIX
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" onclick="showMainContent()" data-i18n="nav_home">Home</a></li>
+            <li><a href="#movies" onclick="scrollToSection('movies')" data-i18n="nav_movies">Movies</a></li>
+            <li><a href="#trending" onclick="scrollToSection('trending')" data-i18n="nav_trending">Trending</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div class="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Search movies, series, actors, directors...">
+            </div>
+            <button class="login-btn" onclick="openLogin()" data-i18n="nav_signin">Sign In</button>
+        </div>
+    </nav>
+</header>
+
+<!-- =========================
+     MAIN WRAPPER CONTENT
+========================== -->
+<div class="main-wrapper" id="mainContentContainer">
+    
+    <!-- HERO SECTION WITH MULTI-POSTER COLLAGE BACKGROUND -->
+    <section class="hero" id="home">
+        <!-- High-Visibility Multi-Poster Collage Background -->
+        <div class="hero-bg-collage">
+            <img src="https://images.unsplash.com/photo-1535016120720-40c646be5580?auto=format&fit=crop&w=500&q=80" alt="Poster 1">
+            <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=500&q=80" alt="Poster 2">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=500&q=80" alt="Poster 3">
+            <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?auto=format&fit=crop&w=500&q=80" alt="Poster 4">
+            <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=500&q=80" alt="Poster 5">
+            <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=500&q=80" alt="Poster 6">
+            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=500&q=80" alt="Poster 7">
+            <img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?auto=format&fit=crop&w=500&q=80" alt="Poster 8">
+            <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=500&q=80" alt="Poster 9">
+            <img src="https://images.unsplash.com/photo-1485095329183-d0797cdc5676?auto=format&fit=crop&w=500&q=80" alt="Poster 10">
+            <img src="https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?auto=format&fit=crop&w=500&q=80" alt="Poster 11">
+            <img src="https://images.unsplash.com/photo-1485236715568-ddc5ee6ca227?auto=format&fit=crop&w=500&q=80" alt="Poster 12">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80" alt="Poster 13">
+            <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=500&q=80" alt="Poster 14">
+            <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=500&q=80" alt="Poster 15">
+            <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=500&q=80" alt="Poster 16">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=500&q=80" alt="Poster 17">
+            <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=500&q=80" alt="Poster 18">
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fa-solid fa-fire" style="color: #e50914;"></i> <span data-i18n="hero_badge">Ultimate Streaming Experience</span>
+            </div>
+            <h1 data-i18n="hero_title">
+                Unlimited movies, TV shows, and <span>Ugandan channels.</span>
+            </h1>
+            <p data-i18n="hero_subtitle">
+                Watch anywhere. Cancel anytime. Stream local Ugandan networks live alongside global blockbusters and trending series.
+            </p>
+            <div class="hero-buttons">
+                <button class="primary-btn" onclick="openLogin()">
+                    <i class="fa-solid fa-play"></i> <span data-i18n="hero_start">Start Watching</span>
+                </button>
+                <button class="secondary-btn" onclick="scrollToSection('movies')">
+                    <span data-i18n="hero_explore">Explore Content</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADVANCED SEARCH RESULTS -->
+    <section class="section" id="searchResultsSection" hidden>
+        <div class="section-heading">
+            <h2 id="searchResultsHeading">Advanced Search</h2>
+        </div>
+        <div class="nicflix-search-panel">
+            <div class="nicflix-filter">
+                <label for="searchType">Search for</label>
+                <select id="searchType">
+                    <option value="all">Everything</option>
+                    <option value="movie">Movies</option>
+                    <option value="tv">TV series</option>
+                    <option value="actor">Actors</option>
+                    <option value="director">Directors</option>
+                    <option value="genre">Genres</option>
+                    <option value="category">Categories</option>
+                </select>
+            </div>
+            <div class="nicflix-filter">
+                <label for="searchMediaType">Content type</label>
+                <select id="searchMediaType">
+                    <option value="movie">Movies</option>
+                    <option value="tv">TV series</option>
+                </select>
+            </div>
+            <div class="nicflix-filter">
+                <label for="searchGenre">Genre</label>
+                <select id="searchGenre">
+                    <option value="">All genres</option>
+                </select>
+            </div>
+            <div class="nicflix-filter">
+                <label for="searchCategory">Category</label>
+                <select id="searchCategory">
+                    <option value="">Any category</option>
+                    <option value="popular">Popular</option>
+                    <option value="top_rated">Top rated</option>
+                    <option value="now_playing">Now playing</option>
+                    <option value="upcoming">Upcoming</option>
+                </select>
+            </div>
+            <div class="nicflix-filter">
+                <label for="searchYear">Release year</label>
+                <input id="searchYear" type="number" min="1900" max="2100" placeholder="Any year">
+            </div>
+            <button type="button" id="applySearchFilters" class="nicflix-search-button">Apply filters</button>
+        </div>
+        <p id="searchStatus" class="nicflix-search-status" aria-live="polite"></p>
+        <div class="movie-grid" id="searchResultsGrid"></div>
+    </section>
+
+    <!-- TRENDING MOVIES SECTION -->
+    <section class="section" id="trending">
+        <div class="section-heading">
+            <h2 data-i18n="sec_trending">Trending Now</h2>
+            <button class="view-all-btn" onclick="toggleViewAll('trendingGrid', this)">View All <i class="fa-solid fa-chevron-down"></i></button>
+        </div>
+        <div class="movie-grid" id="trendingGrid" data-default-count="5">
+            <div class="movie-card" onclick="openLogin()">
+                <img src="https://images.unsplash.com/photo-1535016120720-40c646be5580?auto=format&fit=crop&w=700&q=80" alt="Dune: Part Two">
+                <div class="movie-overlay">
+                    <h3>Dune: Part Two</h3>
+                    <div class="movie-info">Sci-Fi / Action</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                </div>
+            </div>
+            <div class="movie-card" onclick="openLogin()">
+                <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=700&q=80" alt="The Batman 2">
+                <div class="movie-overlay">
+                    <h3>The Batman 2</h3>
+                    <div class="movie-info">Action / Crime</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+                </div>
+            </div>
+            <div class="movie-card" onclick="openLogin()">
+                <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=700&q=80" alt="Interstellar Returns">
+                <div class="movie-overlay">
+                    <h3>Interstellar Returns</h3>
+                    <div class="movie-info">Adventure</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                </div>
+            </div>
+            <div class="movie-card" onclick="openLogin()">
+                <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?auto=format&fit=crop&w=700&q=80" alt="Avatar: Fire & Ash">
+                <div class="movie-overlay">
+                    <h3>Avatar: Fire & Ash</h3>
+                    <div class="movie-info">Fantasy</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+                </div>
+            </div>
+            <div class="movie-card" onclick="openLogin()">
+                <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=700&q=80" alt="Deadpool & Wolverine">
+                <div class="movie-overlay">
+                    <h3>Deadpool & Wolverine</h3>
+                    <div class="movie-info">Comedy / Action</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                </div>
+            </div>
+            <!-- Extra items shown when View All is clicked -->
+            <div class="movie-card extra-item" onclick="openLogin()" style="display:none;">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=700&q=80" alt="Oppenheimer Special">
+                <div class="movie-overlay">
+                    <h3>Oppenheimer Special</h3>
+                    <div class="movie-info">Drama / History</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                </div>
+            </div>
+            <div class="movie-card extra-item" onclick="openLogin()" style="display:none;">
+                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=700&q=80" alt="Gladiator II">
+                <div class="movie-overlay">
+                    <h3>Gladiator II</h3>
+                    <div class="movie-info">Action / Epic</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POPULAR MOVIES SECTION -->
+    <section class="section" id="movies">
+        <div class="section-heading">
+            <h2 data-i18n="sec_popular">Popular Movies</h2>
+            <button class="view-all-btn" onclick="toggleViewAll('moviesGrid', this)">View All <i class="fa-solid fa-chevron-down"></i></button>
+        </div>
+        <div class="movie-grid" id="moviesGrid" data-default-count="5">
+            <div class="movie-card" onclick="openLogin()">
+                <img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?auto=format&fit=crop&w=700&q=80" alt="Beyond Space">
+                <div class="movie-overlay">
+                    <h3>Beyond Space</h3>
+                    <div class="movie-info">Sci-Fi</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                </div>
+            </div>
+            <div class="movie-card" onclick="openLogin()">
+                <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=80" alt="Wild Roads">
+                <div class="movie-overlay">
+                    <h3>Wild Roads</h3>
+                    <div class="movie-info">Adventure</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+                </div>
+            </div>
+            <div class="movie-card" onclick="openLogin()">
+                <img src="https://images.unsplash.com/photo-1485095329183-d0797cdc5676?auto=format&fit=crop&w=700&q=80" alt="Hidden Truth">
+                <div class="movie-overlay">
+                    <h3>Hidden Truth</h3>
+                    <div class="movie-info">Mystery</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                </div>
+            </div>
+            <div class="movie-card" onclick="openLogin()">
+                <img src="https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?auto=format&fit=crop&w=700&q=80" alt="Warriors">
+                <div class="movie-overlay">
+                    <h3>Warriors</h3>
+                    <div class="movie-info">Action</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+                </div>
+            </div>
+            <div class="movie-card" onclick="openLogin()">
+                <img src="https://images.unsplash.com/photo-1485236715568-ddc5ee6ca227?auto=format&fit=crop&w=700&q=80" alt="After Tomorrow">
+                <div class="movie-overlay">
+                    <h3>After Tomorrow</h3>
+                    <div class="movie-info">Sci-Fi</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                </div>
+            </div>
+            <!-- Extra items shown when View All is clicked -->
+            <div class="movie-card extra-item" onclick="openLogin()" style="display:none;">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=80" alt="Neon City">
+                <div class="movie-overlay">
+                    <h3>Neon City</h3>
+                    <div class="movie-info">Cyberpunk</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                </div>
+            </div>
+            <div class="movie-card extra-item" onclick="openLogin()" style="display:none;">
+                <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=700&q=80" alt="Silent Forest">
+                <div class="movie-overlay">
+                    <h3>Silent Forest</h3>
+                    <div class="movie-info">Thriller</div>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+</div>
+
+<!-- =========================
+     DEDICATED INFORMATION PAGES (White Background as Requested)
+========================== -->
+<div class="content-page" id="helpPage">
+    <div class="content-container">
+        <h2 data-i18n="p_help">Help Center</h2>
+        <p>Find answers to common questions about your subscription, streaming quality configurations, and supported devices on NICFLIX.</p>
+        <h3>Frequently Asked Questions</h3>
+        <p><strong>Q: How do I watch live Ugandan TV channels?</strong><br>A: Navigate to the TV Channels section on the homepage and click on any station to start watching instantly after signing in.</p>
+        <p><strong>Q: What should I do if my video is buffering?</strong><br>A: Check your internet connection speed. NICFLIX automatically switches resolution based on your network speed.</p>
+    </div>
+</div>
+
+<div class="content-page" id="accountPage">
+    <div class="content-container">
+        <h2 data-i18n="p_account">Account</h2>
+        <p>Manage your NICFLIX subscription plan, update payment methods, change your email credentials, and review billing history securely.</p>
+        <h3>Membership Details</h3>
+        <p>You are currently on the <strong>NICFLIX Premium HD Plan</strong> with unlimited access to global movies and all 44+ Ugandan television channels.</p>
+    </div>
+</div>
+
+<div class="content-page" id="mediaCenterPage">
+    <div class="content-container">
+        <h2 data-i18n="p_mediacenter">Media Center</h2>
+        <p>Welcome to the NICFLIX Media Center. Explore official press releases, high-resolution promotional artwork, trailers, and media assets for journalists.</p>
+        <h3>Latest Press Releases</h3>
+        <p>NICFLIX expands its Ugandan broadcaster lineup to include over 44 free-to-air and digital satellite television channels.</p>
+    </div>
+</div>
+
+<div class="content-page" id="investorRelationsPage">
+    <div class="content-container">
+        <h2 data-i18n="p_investors">Investor Relations</h2>
+        <p>Review financial reports, quarterly earnings releases, corporate governance guidelines, and investor presentations for NICFLIX Inc.</p>
+        <h3>Financial Highlights</h3>
+        <p>Continuous subscriber growth across East Africa driven by localized content partnerships and high-speed streaming infrastructure.</p>
+    </div>
+</div>
+
+<div class="content-page" id="jobsPage">
+    <div class="content-container">
+        <h2 data-i18n="p_jobs">Jobs</h2>
+        <p>Join our dynamic team of software engineers, media specialists, UI/UX designers, and content curators as we scale digital entertainment across Africa.</p>
+        <h3>Open Positions</h3>
+        <p><strong>1. Senior Frontend Developer (Kampala / Remote)</strong><br>Experience with React, modern CSS design systems, and responsive web performance optimization.</p>
+        <p><strong>2. Media Content Acquisitions Manager</strong><br>Responsible for partnering with local Ugandan television broadcasters and regional filmmakers.</p>
+        <p>Send your CV and cover letter directly to <strong>careers@nicflix.com</strong>.</p>
+    </div>
+</div>
+
+<div class="content-page" id="waysToWatchPage">
+    <div class="content-container">
+        <h2 data-i18n="p_waystowatch">Ways to Watch</h2>
+        <p>Stream NICFLIX anytime, anywhere, on an unlimited number of devices. Find out how to start watching on your favorite hardware.</p>
+        <h3>Supported Devices</h3>
+        <p>Smart TVs (Samsung, LG, Sony), smartphones & tablets (iOS, Android), streaming sticks (Roku, Chromecast, Fire TV), and web browsers (Chrome, Safari, Firefox).</p>
+    </div>
+</div>
+
+<div class="content-page" id="termsPage">
+    <div class="content-container">
+        <h2 data-i18n="p_terms">Terms of Service</h2>
+        <p>Last updated: September 2026</p>
+        <p>By accessing or using NICFLIX, you agree to be bound by these Terms of Service. Please read them carefully before creating an account or streaming media content.</p>
+        <h3>Membership and Billing</h3>
+        <p>Your NICFLIX subscription may start with a free trial or active paid tier. You can cancel your subscription at any time through your account page settings.</p>
+    </div>
+</div>
+
+<div class="content-page" id="privacyPage">
+    <div class="content-container">
+        <h2 data-i18n="p_privacy">Privacy Policy</h2>
+        <p>Last updated: September 2026</p>
+        <p>NICFLIX respects your personal data. This Privacy Policy explains how we collect, use, and safeguard information when you use our website, mobile apps, and streaming services.</p>
+        <h3>Information We Collect</h3>
+        <p>We collect account details such as your email address, password hashes, watchlist history, and preferred streaming configurations to personalize your experience.</p>
+    </div>
+</div>
+
+<div class="content-page" id="cookiePreferencesPage">
+    <div class="content-container">
+        <h2 data-i18n="p_cookies">Cookie Preferences</h2>
+        <p>Manage how NICFLIX uses cookies and similar tracking technologies to analyze site traffic, personalize content, and deliver targeted advertising.</p>
+        <h3>Essential vs. Analytical Cookies</h3>
+        <p>You can choose to enable or disable non-essential analytics cookies at any time using your browser settings or our preference center.</p>
+    </div>
+</div>
+
+<div class="content-page" id="corporateInfoPage">
+    <div class="content-container">
+        <h2 data-i18n="p_corporate">Corporate Information</h2>
+        <p>NICFLIX Uganda Limited is registered under the laws of the Republic of Uganda. Operating license issued by the Uganda Communications Commission (UCC).</p>
+        <h3>Registered Office</h3>
+        <p>Bugolobi, Commercial Road, Kampala, Uganda.</p>
+    </div>
+</div>
+
+<div class="content-page" id="contactPage">
+    <div class="content-container">
+        <h2 data-i18n="p_contact">Contact Us</h2>
+        <p>Need support with your account, billing, live channel streaming, or password recovery? Our customer success team is online 24/7.</p>
+        <h3>Get in Touch</h3>
+        <p><strong>Email:</strong> support@nicflix.com / info@nicflix.com</p>
+        <p><strong>Helpline:</strong> +256 761457037 / +256 74954680</p>
+        <p><strong>Headquarters:</strong> Commercial Road, Kampala, Uganda</p>
+    </div>
+</div>
+
+<!-- =========================
+     LOGIN MODAL
+========================== -->
+<div class="modal" id="loginModal">
+    <div class="login-box">
+        <button class="close-modal" onclick="closeLogin()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="login-header">
+            <h2 id="formTitle">Sign In</h2>
+            <p id="formSubtitle">Sign in to unlock movies and watch live channels.</p>
+        </div>
+        
+        <div class="social-login">
+            <button class="social-btn"><i class="fa-brands fa-google"></i> Google</button>
+            <button class="social-btn"><i class="fa-brands fa-facebook"></i> Facebook</button>
+        </div>
+        
+        <div class="divider">OR</div>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <label>Email or phone number</label>
+                <input type="text" id="email" placeholder="Email or phone" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Password" minlength="6" required>
+            </div>
+            <button type="submit" class="submit-btn">Sign In</button>
+        </form>
+        
+        <div class="signup-text">
+            New to NICFLIX? <span onclick="switchToSignup()">Sign up now</span>
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     FOOTER
+========================== -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-top">
+            Questions? Call <a href="tel:+256414000000">+256 761457037 / +256 74954680</a>
+        </div>
+        
+        <div class="footer-grid">
+            <div>
+                <ul>
+                    <li><a href="#" onclick="switchInfoPage('helpPage')" data-i18n="footer_help">Help Center</a></li>
+                    <li><a href="#" onclick="switchInfoPage('accountPage')" data-i18n="footer_account">Account</a></li>
+                    <li><a href="#" onclick="switchInfoPage('mediaCenterPage')" data-i18n="footer_mediacenter">Media Center</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="#" onclick="switchInfoPage('investorRelationsPage')" data-i18n="footer_investors">Investor Relations</a></li>
+                    <li><a href="#" onclick="switchInfoPage('jobsPage')" data-i18n="footer_jobs">Jobs</a></li>
+                    <li><a href="#" onclick="switchInfoPage('waysToWatchPage')" data-i18n="footer_waystowatch">Ways to Watch</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="#" onclick="switchInfoPage('termsPage')" data-i18n="footer_terms">Terms of Service</a></li>
+                    <li><a href="#" onclick="switchInfoPage('privacyPage')" data-i18n="footer_privacy">Privacy Policy</a></li>
+                    <li><a href="#" onclick="switchInfoPage('cookiePreferencesPage')" data-i18n="footer_cookies">Cookie Preferences</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="#" onclick="switchInfoPage('corporateInfoPage')" data-i18n="footer_corporate">Corporate Information</a></li>
+                    <li><a href="#" onclick="switchInfoPage('contactPage')" data-i18n="footer_contact">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Language Selector -->
+       <div class="footer-lang-selector">
+            <select id="languageSelect" onchange="changeLanguage(this.value)">
+                <option value="en">English</option>
+                <option value="lg">Luganda</option>
+                <option value="sw">Kiswahili</option>
+                <option value="fr">Français</option>
+                <option value="zh">中文</option>
+                <option value="ko">한국어</option>
+            </select>
+        </div>
+
+        <div class="copyright">
+            &copy; 2026 NICFLIX Uganda. All rights reserved. .
+        </div>
+    </div>
+</footer>
+
+<!-- =========================
+     JAVASCRIPT & TRANSLATIONS
+========================== -->
+
+
+
+
+
+<script src="js/main.js"></script>
+<script type="module" src="js/supabase.js"></script>
+<script type="module" src="js/media.js"></script>
+<script type="module" src="js/tv-player.js"></script>
+
+
+</body>
+</html>

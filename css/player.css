@@ -1,0 +1,150 @@
+
+/* =====================================
+   NICFLIX CINEMATIC VIDEO PLAYER
+===================================== */
+
+.nicflix-player-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, .94);
+    backdrop-filter: blur(12px);
+
+    animation: nicflixFadeIn .25s ease;
+}
+
+.nicflix-player-container {
+    width: 100%;
+    max-width: 1100px;
+
+    overflow: hidden;
+
+    background: #101116;
+    border: 1px solid #30323b;
+    border-radius: 14px;
+
+    box-shadow: 0 25px 80px rgba(0, 0, 0, .8);
+
+    animation: nicflixPlayerIn .3s ease;
+}
+
+.nicflix-player-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+    padding: 16px 22px;
+
+    background: #171920;
+    border-bottom: 1px solid #30323b;
+}
+
+.nicflix-player-header h2 {
+    margin: 0;
+
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.nicflix-player-header button {
+    width: 40px;
+    height: 40px;
+
+    border: none;
+    border-radius: 50%;
+
+    color: white;
+    background: #292c35;
+
+    font-size: 20px;
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.nicflix-player-header button:hover {
+    background: #e50914;
+    transform: rotate(90deg);
+}
+
+.nicflix-video {
+    display: block;
+
+    width: 100%;
+    max-height: 75vh;
+
+    aspect-ratio: 16 / 9;
+
+    background: #000;
+    object-fit: contain;
+}
+
+.nicflix-video::-webkit-media-controls-panel {
+    background-image: linear-gradient(
+        transparent,
+        rgba(0, 0, 0, .75)
+    );
+}
+
+.nicflix-player-status {
+    min-height: 30px;
+
+    margin: 0;
+    padding: 12px 20px;
+
+    color: #c5c7ce;
+    background: #101116;
+
+    text-align: center;
+    font-size: 13px;
+}
+
+@keyframes nicflixFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes nicflixPlayerIn {
+    from {
+        opacity: 0;
+        transform: scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .nicflix-player-overlay {
+        padding: 10px;
+    }
+
+    .nicflix-player-container {
+        border-radius: 9px;
+    }
+
+    .nicflix-player-header {
+        padding: 12px 14px;
+    }
+
+    .nicflix-player-header h2 {
+        font-size: 15px;
+    }
+
+    .nicflix-video {
+        max-height: 65vh;
+    }
+}

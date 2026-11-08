@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details | NICFLIX</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b0b0f;
+            color: white;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 22px 5%;
+            background: #111;
+        }
+
+        .logo {
+            color: #e50914;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .back {
+            display: inline-block;
+            margin: 30px 5%;
+            color: white;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            color: #e50914;
+        }
+
+        .details-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        #detailsContent {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        #detailsContent img {
+            max-width: 280px;
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        #detailsContent h1 {
+            margin: 20px 0;
+        }
+
+        #detailsContent p {
+            color: #bbb;
+            line-height: 1.7;
+            margin: 15px auto;
+            max-width: 750px;
+        }
+
+        .trailer {
+            margin-top: 35px;
+        }
+
+        .trailer iframe {
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 16 / 9;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .loading {
+            color: #aaa;
+        }
+        
+.streaming-section {
+    margin-top: 45px;
+    text-align: left;
+}
+
+.streaming-section h2 {
+    margin-bottom: 25px;
+    font-size: 26px;
+}
+
+.provider-group {
+    margin-bottom: 25px;
+}
+
+.provider-group h3 {
+    margin-bottom: 15px;
+    color: #e50914;
+}
+
+.provider-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.provider-card {
+    background: #181818;
+    border: 1px solid #292929;
+    border-radius: 10px;
+    padding: 15px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.provider-card img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.provider-card a {
+    color: #e50914;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.provider-card a:hover {
+    text-decoration: underline;
+}
+
+.provider-status {
+    color: #aaa;
+    margin: 15px 0;
+}
+
+.justwatch-credit {
+    display: inline-block;
+    color: #aaa;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+.justwatch-credit:hover {
+    color: white;
+}
+
+    </style>
+    <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/movie-details.css">
+<link rel="stylesheet" href="css/player.css">
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="logo">NICFLIX</a>
+    </header>
+
+    <a href="index.html" class="back">
+        <i class="fas fa-arrow-left"></i> Back to NICFLIX
+    </a>
+
+    <main class="details-container">
+        <div id="detailsContent">
+            <p class="loading">Loading movie details...</p>
+        </div>
+    </main>
+
+    <script type="module" src="js/movie-details.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NICFLIX | Admin Dashboard</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b0b0f;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        button, input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .login-screen {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 420px;
+            padding: 35px;
+            background: #15151c;
+            border: 1px solid #292933;
+            border-radius: 14px;
+        }
+
+        .logo {
+            color: #e50914;
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .login-box h2 {
+            margin: 25px 0 10px;
+        }
+
+        .login-box p {
+            color: #aaa;
+            margin-bottom: 22px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            background: #0b0b0f;
+            color: white;
+            border: 1px solid #333;
+            border-radius: 7px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #e50914;
+        }
+
+        .primary-btn {
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 13px 20px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .primary-btn:hover {
+            background: #bd0811;
+        }
+
+        .login-box .primary-btn {
+            width: 100%;
+        }
+
+        .message {
+            color: #ff7777;
+            font-size: 13px;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+
+        .dashboard {
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #15151c;
+            border-bottom: 1px solid #292933;
+            padding: 20px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .topbar h2 {
+            font-size: 22px;
+        }
+
+        .topbar span {
+            color: #e50914;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid #555;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 7px;
+        }
+
+        .logout-btn:hover {
+            border-color: #e50914;
+            color: #e50914;
+        }
+
+        .main-content {
+            max-width: 1250px;
+            padding: 35px 20px;
+            margin: auto;
+        }
+
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome p {
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card, .panel {
+            background: #15151c;
+            border: 1px solid #292933;
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .stat-card i {
+            color: #e50914;
+            font-size: 23px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h3 {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card strong {
+            font-size: 27px;
+        }
+
+        .panel {
+            margin-bottom: 25px;
+        }
+
+        .panel h2 {
+            margin-bottom: 22px;
+            font-size: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .form-grid input {
+            margin: 0;
+        }
+
+        .form-grid .full {
+            grid-column: 1 / -1;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid #30303a;
+            text-align: left;
+        }
+
+        th {
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        .status {
+            color: #f5c542;
+        }
+
+        .empty {
+            color: #aaa;
+            padding: 20px 0;
+        }
+
+        @media (max-width: 700px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid .full {
+                grid-column: auto;
+            }
+
+            .topbar {
+                padding: 15px;
+            }
+
+            .topbar h2 {
+                font-size: 17px;
+            }
+
+            .login-box {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ADMIN LOGIN -->
+    <section id="loginScreen" class="login-screen">
+        <div class="login-box">
+            <div class="logo">NICFLIX</div>
+            <small style="color:#aaa;">ADMINISTRATION PORTAL</small>
+
+            <h2>Administrator Login</h2>
+            <p>Sign in using your registered NICFLIX administrator account.</p>
+
+            <form id="loginForm">
+                <input
+                    type="email"
+                    id="adminEmail"
+                    placeholder="Administrator email"
+                    required
+                >
+
+                <input
+                    type="password"
+                    id="adminPassword"
+                    placeholder="Password"
+                    required
+                >
+
+                <button class="primary-btn" type="submit" id="loginButton">
+                    Sign In
+                </button>
+                <p>
+    <a href="#" id="forgotPassword">Forgot password?</a>
+</p>
+<p id="resetMessage"></p>
+            </form>
+
+            <div id="loginMessage" class="message"></div>
+        </div>
+    </section>
+
+
+    <!-- ADMIN DASHBOARD -->
+    <section id="dashboard" class="dashboard hidden">
+
+        <header class="topbar">
+            <h2><span>NICFLIX</span> ADMIN</h2>
+
+            <button class="logout-btn" id="logoutButton">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </header>
+
+        <main class="main-content">
+
+            <div class="welcome">
+                <h1>Dashboard Overview</h1>
+                <p>Manage your streaming providers and licensed content.</p>
+            </div>
+
+            <div class="stats">
+
+                <div class="stat-card">
+                    <i class="fas fa-building"></i>
+                    <h3>Total Providers</h3>
+                    <strong id="providerCount">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Pending Partnerships</h3>
+                    <strong id="pendingCount">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <i class="fas fa-film"></i>
+                    <h3>Licensed Offers</h3>
+                    <strong id="offerCount">0</strong>
+                </div>
+
+            </div>
+
+            <!-- REGISTER PROVIDER -->
+            <section class="panel">
+                <h2><i class="fas fa-plus-circle"></i> Register Provider</h2>
+
+                <form id="providerForm" class="form-grid">
+
+                    <input
+                        type="text"
+                        id="providerName"
+                        placeholder="Provider name"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        id="providerSlug"
+                        placeholder="Unique slug e.g. wama-streaming"
+                        required
+                    >
+
+                    <input
+                        type="url"
+                        id="providerWebsite"
+                        placeholder="Official website URL"
+                        required
+                    >
+
+                    <input
+                        type="url"
+                        id="providerLogo"
+                        placeholder="Logo image URL (optional)"
+                    >
+
+                    <input
+                        type="text"
+                        id="providerDescription"
+                        placeholder="Provider description"
+                        class="full"
+                    >
+
+                    <button class="primary-btn full" type="submit">
+                        Register Provider
+                    </button>
+
+                </form>
+
+                <div id="providerMessage" class="message"></div>
+            </section>
+
+            <!-- PROVIDER LIST -->
+            <section class="panel">
+                <h2><i class="fas fa-list"></i> Registered Providers</h2>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Provider</th>
+                                <th>Website</th>
+                                <th>Partnership</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="providerTable">
+                            <tr>
+                                <td colspan="4" class="empty">
+                                    Loading providers...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- OFFERS -->
+            <section class="panel">
+                <h2><i class="fas fa-clapperboard"></i> Licensed Content Offers</h2>
+
+                <p class="empty">
+                    
+<div class="form-card">
+    <h3><i class="fas fa-film"></i> Add Licensed Content Offer</h3>
+
+    <form id="offerForm">
+
+        <div class="form-group">
+            <label for="offerProvider">Streaming Provider</label>
+            <select id="offerProvider" required>
+                <option value="">Select an approved provider</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="tmdbId">TMDB ID</label>
+            <input
+                type="number"
+                id="tmdbId"
+                placeholder="Example: 550"
+                min="1"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="mediaType">Content Type</label>
+            <select id="mediaType" required>
+                <option value="movie">Movie</option>
+                <option value="tv">TV Show</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="countryCode">Country Code</label>
+            <input
+                type="text"
+                id="countryCode"
+                value="UG"
+                maxlength="2"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="offerType">Offer Type</label>
+            <select id="offerType" required>
+                <option value="subscription">Subscription</option>
+                <option value="free">Free</option>
+                <option value="ads">Free with Ads</option>
+                <option value="rent">Rent</option>
+                <option value="buy">Buy</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="availabilityUrl">Official Availability URL</label>
+            <input
+                type="url"
+                id="availabilityUrl"
+                placeholder="https://provider.com"
+                required
+            >
+        </div>
+
+        <button type="submit">
+            <i class="fas fa-plus"></i> Add Licensed Offer
+        </button>
+
+        <p id="offerMessage"></p>
+
+    </form>
+</div>
+
+<div class="offers-list">
+    <h3>Registered Licensed Offers</h3>
+
+    <div id="offersTableContainer">
+        <p>Loading licensed offers...</p>
+    </div>
+</div>
+
+                </p>
+            </section>
+
+        </main>
+    </section>
+
+    <script type="module" src="js/admin.js"></script>
+
+</body>
+</html>
